@@ -11,13 +11,13 @@ def welcome():
 
 @app.route('/home')
 def home_page():
-    return render_template('new_home.html')
+    return render_template('home.html')
 
 @app.route('/contact')
 def contact():
     return render_template('contact.html')
 
-@app.route('/blog', methods =['POST'])
+@app.route('/blog', methods =['GET','POST'])
 def blog():
     preg = request.form.get('preg')
     plas = request.form.get('plas')
@@ -29,7 +29,7 @@ def blog():
     age = request.form.get('age')
     print(preg,plas,pres,skin,test,mass,pedi,age)
 
-    pred = model.predict([[preg,plas,pres,skin,test,mass,pedi,age]])
+    pred = model.predict([[int(preg),int(plas),int(pres),int(skin),int(test),int(mass),int(pedi),int(age)]])
 
     if pred[0] == 1:
         output = 'Diabetic'
